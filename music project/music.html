@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music player</title>
+    <link rel="stylesheet" href="stylemusic.css">
+    <script src="https://kit.fontawesome.com/2ab25c7bc7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+   <div class="container">
+    <div class="music-player">
+     <nav>
+        <div class="circle">
+            <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div class="circle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+     </nav>
+     <img src="https://www.val9ja.com/wp-content/uploads/2023/03/Davido-Timeless-Album-EP.webp" class="song-img" >
+     <h1>Feel</h1>
+     <p>Davido</p>
+
+    <audio id="song">
+        <source src="davido_feel_official_audio_aac_54036.m4a" type="audio/mpeg">
+    </audio>
+    <input type="range" value="0" id="progress">
+
+    <div class="controls">
+        <div><i class="fa-solid fa-backward"></i></div>
+        <div onclick="playpause()"><i class="fa-solid fa-pause" id="ctricon"></i></div>
+        <div><i class="fa-solid fa-forward"></i></div>
+    </div>
+   
+    </div>
+ </div>
+
+<script>
+   
+   const progress = document.getElementById("progress");
+   const song = document.getElementById("song");
+   const ctricon = document.getElementById("ctricon");
+
+   song.onloadedmetadata = function(){
+    progress.max = song.duration;
+    progress.value = song.currentTime;
+   }
+
+   function playpause(){
+    if(ctricon.classList.contains("fa-pause")){
+        song.pause();
+        ctricon.classList.remove("fa-pause");
+        ctricon.classList.add("fa-play");
+       
+    }
+    else{
+        song.play();
+        ctricon.classList.add("fa-pause");
+        ctricon.classList.remove("fa-play");
+    }
+   }
+
+   if(song.play()){
+     setInterval(()=>{
+        progress.value = song.currentTime;
+     },500);
+   }
+
+   progress.onchange = function(){
+    song.play();
+    song.currentTime = progress.value;
+    ctricon.classList.add("fa-pause");
+    ctricon.classList.remove("fa-play");
+   }
+
+</script>
+
+
+</body>
+</html>
